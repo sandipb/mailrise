@@ -283,6 +283,78 @@ If critical issues are discovered:
 - Continue monitoring Apprise releases for compatibility updates
 - Docker images will be available at: `ghcr.io/sandipb/mailrise:1.4.0-1`, `:1.4`, `:stable`, `:latest`
 
+## Docker Image Tagging Strategy
+
+### How Docker Tags are Created
+
+The GitHub Actions workflow automatically creates Docker images with different tags based on the trigger type:
+
+**When pushing commits to `apprise-1.9.5` branch:**
+```bash
+git push origin apprise-1.9.5
+```
+Creates:
+- `ghcr.io/sandipb/mailrise:latest` - Always points to the most recent commit on the branch
+- `ghcr.io/sandipb/mailrise:sha-<hash>` - Specific commit identifier (e.g., `sha-18e0a37`)
+
+**When pushing a git tag:**
+```bash
+git tag -s v1.4.0-2 -m "Release 1.4.0-2"
+git push origin v1.4.0-2
+```
+Creates:
+- `ghcr.io/sandipb/mailrise:1.4.0-2` - Full version tag (from semver pattern)
+- `ghcr.io/sandipb/mailrise:1.4` - Major.minor version (from semver pattern)
+- `ghcr.io/sandipb/mailrise:stable` - Always points to the most recent tagged release
+- `ghcr.io/sandipb/mailrise:sha-<hash>` - Specific commit identifier
+
+### Tag Meanings
+
+| Tag | Description | When Updated |
+|-----|-------------|--------------|
+| `latest` | Most recent commit on `apprise-1.9.5` branch | Every branch push |
+| `stable` | Most recent tagged release | Every tag push |
+| `1.4.0-N` | Specific version number | When that tag is pushed |
+| `1.4` | Latest patch of major.minor version | When a 1.4.x tag is pushed |
+| `sha-<hash>` | Specific commit hash | Every push (branch or tag) |
+
+### Recommended Development Workflow
+
+1. **Make changes and test on branch:**
+   ```bash
+   git commit -S -m "fix: your changes"
+   git push origin apprise-1.9.5
+   ```
+   → Docker image built with `latest` and `sha-<hash>` tags
+
+2. **Test the development image:**
+   ```bash
+   docker pull ghcr.io/sandipb/mailrise:latest
+   # or
+   docker pull ghcr.io/sandipb/mailrise:sha-18e0a37
+   ```
+
+3. **When ready to release, create and push a tag:**
+   ```bash
+   git tag -s v1.4.0-2 -m "Release 1.4.0-2: Description of changes"
+   git push origin v1.4.0-2
+   ```
+   → Docker image built with `1.4.0-2`, `1.4`, `stable`, and `sha-<hash>` tags
+
+4. **Users can pull stable releases:**
+   ```bash
+   docker pull ghcr.io/sandipb/mailrise:stable
+   # or specific version
+   docker pull ghcr.io/sandipb/mailrise:1.4.0-2
+   ```
+
+### Branch Strategy
+
+- **`main` branch**: Reserved for tracking upstream changes (no Docker builds)
+- **`apprise-1.9.5` branch**: Active development branch for this fork (Docker builds enabled)
+- All fork work happens on feature branches merged into `apprise-1.9.5`
+- Tags are created from `apprise-1.9.5` branch when ready to release
+
 ## Notes
 
 - Original repository last activity: commit ee40be5 (current on main)
