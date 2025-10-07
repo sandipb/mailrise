@@ -3,7 +3,6 @@ name: Push to GitHub Packages
 on:
   push:
     branches:
-      - 'main'
       - 'apprise-1.9.5'
     tags:
       - '*'
