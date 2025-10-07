@@ -99,9 +99,11 @@ This document tracks the upgrade of Mailrise dependencies, primarily Apprise fro
 ### Phase 7: Docker Updates ✓
 - [x] Review Dockerfile for Python version compatibility
 - [x] Update Dockerfile to use python:3.9 as base image (was python:3)
-- [ ] Test Docker build: `docker build -t mailrise-test .` (optional, requires Docker)
+- [x] Comment out Docker Hub workflow (fork uses GHCR instead)
+- [x] Update GitHub Packages workflow to trigger on apprise-1.9.5 branch
+- [x] Update GHCR image name to use repository owner
+- [ ] Test Docker build via GitHub Actions workflow
 - [x] Verify container runs with new dependencies (Dockerfile updated)
-- [x] Update any Docker-specific documentation (none needed)
 
 ### Phase 8: Documentation Updates ✓
 - [x] Update README.rst with new Python requirement
