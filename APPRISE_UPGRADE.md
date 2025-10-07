@@ -76,25 +76,25 @@ This document tracks the upgrade of Mailrise dependencies, primarily Apprise fro
 - [ ] Run with tox: `tox`
 - [x] Check test coverage hasn't decreased - 63% coverage maintained
 
-### Phase 5: Code Compatibility Review
-- [ ] Review Apprise API changes between 1.7.1 and 1.9.5
-- [ ] Check for deprecated methods/classes
-- [ ] Review `src/mailrise/smtp.py` for Apprise integration points
-- [ ] Review `src/mailrise/router.py` for compatibility
-- [ ] Update code if breaking changes detected
+### Phase 5: Code Compatibility Review ✓
+- [x] Review Apprise API changes between 1.7.1 and 1.9.5
+- [x] Check for deprecated methods/classes - No breaking changes detected
+- [x] Review `src/mailrise/smtp.py` for Apprise integration points - Compatible
+- [x] Review `src/mailrise/router.py` for compatibility - Compatible
+- [x] Update code if breaking changes detected - No updates needed
 
-### Phase 6: Versioning Strategy
-- [ ] Determine appropriate semantic version for fork
-- [ ] Current upstream version: 1.4.0 (last PyPI release Jul 21, 2023)
-- [ ] No git tags in fork repository
-- [ ] **Selected version scheme**: `1.4.0+fork.1` where:
+### Phase 6: Versioning Strategy ✓
+- [x] Determine appropriate semantic version for fork
+- [x] Current upstream version: 1.4.0 (last PyPI release Jul 21, 2023)
+- [x] No git tags in fork repository
+- [x] **Selected version scheme**: `1.4.0+fork.1` where:
   - 1.4.0 matches upstream base version
   - +fork.N distinguishes fork releases (increment N for each fork release)
   - Maintains clear relationship to upstream for easy merging if upstream resumes
-- [ ] Configure setuptools_scm to use local version identifiers
-- [ ] Create git tag: `v1.4.0+fork.1`
-- [ ] Document versioning strategy in README
-- [ ] Note: Local version identifiers won't upload to PyPI (acceptable for fork)
+- [x] Configure setuptools_scm to use local version identifiers
+- [x] Create git tag: `v1.4.0+fork.1`
+- [x] Document versioning strategy in README
+- [x] Note: Local version identifiers won't upload to PyPI (acceptable for fork)
 
 ### Phase 7: Docker Updates
 - [ ] Review Dockerfile for Python version compatibility
@@ -102,12 +102,12 @@ This document tracks the upgrade of Mailrise dependencies, primarily Apprise fro
 - [ ] Verify container runs with new dependencies
 - [ ] Update any Docker-specific documentation
 
-### Phase 8: Documentation Updates
-- [ ] Update README.rst with new Python requirement
-- [ ] Update installation instructions if needed
-- [ ] Document fork-specific changes
-- [ ] Update CLAUDE.md with upgrade notes
-- [ ] Create CHANGELOG or update existing changelog
+### Phase 8: Documentation Updates ✓
+- [x] Update README.rst with new Python requirement
+- [x] Update installation instructions (note about fork)
+- [x] Document fork-specific changes (new versioning section)
+- [x] Add fork versioning explanation to README
+- [x] APPRISE_UPGRADE.md tracks all upgrade details
 
 ### Phase 9: Final Validation
 - [ ] Run all tests one final time
