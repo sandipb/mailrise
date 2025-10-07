@@ -7,4 +7,4 @@ build-backend = "setuptools.build_meta"
 # See configuration details in https://github.com/pypa/setuptools_scm
 version_scheme = "no-guess-dev"
 local_scheme = "no-local-version"
-tag_regex = "^v(?P<version>[vV]?\\d+\\.\\d+\\.\\d+(\\+fork\\.\\d+)?)$"
+tag_regex = "^v(?P<version>\\d+\\.\\d+\\.\\d+(-\\d+)?)$"

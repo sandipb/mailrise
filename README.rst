@@ -156,19 +156,19 @@ is included with all the Python tooling necessary for working with Mailrise.
 Fork Versioning
 ===============
 
-This fork uses a versioning scheme that maintains a clear relationship to the upstream
+This fork uses a simple versioning scheme that maintains a clear relationship to the upstream
 project while distinguishing fork-specific releases:
 
-* **Format**: ``<upstream-version>+fork.<N>``
-* **Example**: ``1.4.0+fork.1``
+* **Format**: ``<upstream-version>-<N>``
+* **Example**: ``1.4.0-1``, ``1.4.0-2``
 * **Rationale**:
 
   * ``1.4.0`` matches the last upstream release version
-  * ``+fork.N`` identifies this as a fork release (N increments with each fork release)
+  * ``-N`` identifies the fork iteration (increments with each fork release)
   * Makes it easy to merge upstream changes if the original project resumes activity
-  * PEP 440 compliant local version identifier
+  * The fork is identified by the repository owner (sandipb) in the container registry path
 
-**Current version**: ``1.4.0+fork.1``
+**Current version**: ``1.4.0-1``
 
 Changes in this fork
 --------------------
