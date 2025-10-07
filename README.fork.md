@@ -1,5 +1,9 @@
 # Fork-Specific Changes
 
+[![Docker pulls](https://badgen.net/docker/pulls/sandipb/mailrise)](https://hub.docker.com/r/sandipb/mailrise)
+[![Last commit](https://badgen.net/github/last-commit/sandipb/mailrise/main)](https://github.com/sandipb/mailrise)
+[![Checks status](https://badgen.net/github/checks/sandipb/mailrise)](https://github.com/sandipb/mailrise/actions)
+
 This document describes all changes made in this fork of mailrise.
 
 ## Installation
@@ -9,7 +13,7 @@ This document describes all changes made in this fork of mailrise.
 You can find the original Mailrise [on PyPI](https://pypi.org/project/mailrise/).
 This fork is not published to PyPI. Install from source instead (see below).
 
-The minimum Python version is 3.9+.
+The minimum Python version is 3.10+.
 
 Once installed, you should write a configuration file and then configure Mailrise
 to run as a service. Here is the suggested systemd unit file::
@@ -52,7 +56,7 @@ project while distinguishing fork-specific releases:
   * Makes it easy to merge upstream changes if the original project resumes activity
   * The fork is identified by the repository owner (sandipb) in the container registry path
 
-**Current version**: `1.4.0-3`
+**Current version**: `1.4.0-4`
 
 ## Changes in this fork
 
@@ -62,5 +66,5 @@ project while distinguishing fork-specific releases:
   * aiosmtpd: 1.4.4.post2 → 1.4.6
   * PyYAML: 6.0.1 → 6.0.3
 
-* Python requirement: 3.9+ (was 3.8+, updated due to Apprise 1.9.5 requirement)
+* Python requirement: 3.10+ (was 3.8+, updated due to Apprise 1.9.5 requirement and modern Python support)
 * All tests passing with updated dependencies
