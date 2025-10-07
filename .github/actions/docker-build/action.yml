@@ -11,14 +11,11 @@ inputs:
 runs:
   using: composite
   steps:
-    -
-      name: Set up QEMU
+    - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
-    -
-      name: Set up Docker Buildx
+    - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-    -
-      name: Docker meta
+    - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5
       with:
@@ -29,12 +26,12 @@ runs:
         tags: |
           type=schedule
           type=semver,pattern={{version}}
+          type=semver,pattern={{major}}
           type=semver,pattern={{major}}.{{minor}}
           type=raw,value=stable,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
-          type=raw,value=latest,enable=${{ github.ref == 'refs/heads/apprise-1.9.5' }}
+          type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
           type=sha,prefix=sha-,format=short
-    -
-      name: Build and push
+    - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v6
       with:
