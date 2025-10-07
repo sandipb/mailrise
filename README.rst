@@ -9,6 +9,9 @@ mailrise
 
 An SMTP gateway for Apprise notifications.
 
+**Note**: This is a maintained fork of the original `mailrise <https://github.com/YoRyan/mailrise>`_
+project with updated dependencies. See versioning section below for details.
+
 .. |docker| image:: https://badgen.net/docker/pulls/yoryan/mailrise
   :alt: Docker pulls
 
@@ -117,8 +120,10 @@ Mailrise with one:
 From PyPI
 ---------
 
-You can find Mailrise `on PyPI <https://pypi.org/project/mailrise/>`_. The
-minimum Python version is 3.8+.
+You can find the original Mailrise `on PyPI <https://pypi.org/project/mailrise/>`_.
+This fork is not published to PyPI. Install from source instead (see below).
+
+The minimum Python version is 3.9+.
 
 Once installed, you should write a configuration file and then configure Mailrise
 to run as a service. Here is the suggested systemd unit file::
@@ -147,6 +152,35 @@ To build a wheel, use::
 If you are using Visual Studio Code, a
 `development container <https://code.visualstudio.com/docs/remote/containers>`_
 is included with all the Python tooling necessary for working with Mailrise.
+
+Fork Versioning
+===============
+
+This fork uses a versioning scheme that maintains a clear relationship to the upstream
+project while distinguishing fork-specific releases:
+
+* **Format**: ``<upstream-version>+fork.<N>``
+* **Example**: ``1.4.0+fork.1``
+* **Rationale**:
+
+  * ``1.4.0`` matches the last upstream release version
+  * ``+fork.N`` identifies this as a fork release (N increments with each fork release)
+  * Makes it easy to merge upstream changes if the original project resumes activity
+  * PEP 440 compliant local version identifier
+
+**Current version**: ``1.4.0+fork.1``
+
+Changes in this fork
+--------------------
+
+* Updated dependencies:
+
+  * Apprise: 1.7.1 → 1.9.5
+  * aiosmtpd: 1.4.4.post2 → 1.4.6
+  * PyYAML: 6.0.1 → 6.0.3
+
+* Python requirement: 3.9+ (was 3.8+, updated due to Apprise 1.9.5 requirement)
+* All tests passing with updated dependencies
 
 Configuration
 =============
