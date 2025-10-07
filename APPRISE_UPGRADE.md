@@ -4,7 +4,7 @@
 
 This document tracks the upgrade of Mailrise dependencies, primarily Apprise from 1.7.1 to 1.9.5, ensuring all tests pass and maintaining compatibility across the codebase.
 
-**Branch**: `apprise-1.9.5`
+**Branch**: `main`
 
 **Original Repository**: https://github.com/YoRyan/mailrise (unmaintained)
 
@@ -100,7 +100,7 @@ This document tracks the upgrade of Mailrise dependencies, primarily Apprise fro
 - [x] Review Dockerfile for Python version compatibility
 - [x] Update Dockerfile to use python:3.9 as base image (was python:3)
 - [x] Comment out Docker Hub workflow (fork uses GHCR instead)
-- [x] Update GitHub Packages workflow to trigger on apprise-1.9.5 branch
+- [x] Update GitHub Packages workflow to trigger on main branch
 - [x] Update GHCR image name to use repository owner
 - [ ] Test Docker build via GitHub Actions workflow
 - [x] Verify container runs with new dependencies (Dockerfile updated)
@@ -214,9 +214,9 @@ Key versions between 1.7.1 and 1.9.5 to review:
 ## Rollback Plan
 
 If critical issues are discovered:
-1. Keep `main` branch unchanged as baseline
-2. Work continues on `apprise-1.9.5` branch
-3. Can revert to main branch if upgrade proves infeasible
+1. Keep `upstream` branch unchanged as baseline
+2. Work continues on `main` branch
+3. If upgrade proves infeasible, reset course by fast-forwarding from `upstream` or rolling back to prior release tag
 4. Document any blockers for future upgrade attempts
 
 ## Success Criteria
@@ -289,9 +289,9 @@ If critical issues are discovered:
 
 The GitHub Actions workflow automatically creates Docker images with different tags based on the trigger type:
 
-**When pushing commits to `apprise-1.9.5` branch:**
+**When pushing commits to `main` branch:**
 ```bash
-git push origin apprise-1.9.5
+git push origin main
 ```
 Creates:
 - `ghcr.io/sandipb/mailrise:latest` - Always points to the most recent commit on the branch
@@ -312,7 +312,7 @@ Creates:
 
 | Tag | Description | When Updated |
 |-----|-------------|--------------|
-| `latest` | Most recent commit on `apprise-1.9.5` branch | Every branch push |
+| `latest` | Most recent commit on `main` branch | Every branch push |
 | `stable` | Most recent tagged release | Every tag push |
 | `1.4.0-N` | Specific version number | When that tag is pushed |
 | `1.4` | Latest patch of major.minor version | When a 1.4.x tag is pushed |
@@ -323,7 +323,7 @@ Creates:
 1. **Make changes and test on branch:**
    ```bash
    git commit -S -m "fix: your changes"
-   git push origin apprise-1.9.5
+   git push origin main
    ```
    → Docker image built with `latest` and `sha-<hash>` tags
 
@@ -350,14 +350,14 @@ Creates:
 
 ### Branch Strategy
 
-- **`main` branch**: Reserved for tracking upstream changes (no Docker builds)
-- **`apprise-1.9.5` branch**: Active development branch for this fork (Docker builds enabled)
-- All fork work happens on feature branches merged into `apprise-1.9.5`
-- Tags are created from `apprise-1.9.5` branch when ready to release
+- **`main` branch**: Active development branch for this fork (Docker builds enabled)
+- **`upstream` branch**: Tracks upstream repository changes
+- All fork work happens on feature branches merged into `main`
+- Tags are created from `main` when ready to release
 
 ## Notes
 
-- Original repository last activity: commit ee40be5 (current on main)
-- This fork adds maintenance and dependency updates
-- Focus on stability and compatibility
-- No new features in this upgrade cycle
+- Upstream repository (YoRyan/mailrise) last activity: commit ee40be5; tracked locally on `upstream` branch
+- Fork development happens on `main`, with release tags cut directly from it
+- Focus remains on maintenance, stability, and dependency upkeep
+- No fork-specific feature work planned in this upgrade cycle
