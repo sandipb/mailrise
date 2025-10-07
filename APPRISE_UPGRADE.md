@@ -86,15 +86,15 @@ This document tracks the upgrade of Mailrise dependencies, primarily Apprise fro
 ### Phase 6: Versioning Strategy ✓
 - [x] Determine appropriate semantic version for fork
 - [x] Current upstream version: 1.4.0 (last PyPI release Jul 21, 2023)
-- [x] No git tags in fork repository
-- [x] **Selected version scheme**: `1.4.0+fork.1` where:
+- [x] **Selected version scheme**: `1.4.0-N` where:
   - 1.4.0 matches upstream base version
-  - +fork.N distinguishes fork releases (increment N for each fork release)
+  - -N distinguishes fork iterations (increment N for each fork release)
   - Maintains clear relationship to upstream for easy merging if upstream resumes
-- [x] Configure setuptools_scm to use local version identifiers
-- [x] Create git tag: `v1.4.0+fork.1`
+  - Git and Docker compatible (no special characters)
+- [x] Configure setuptools_scm for new tag format
+- [x] Create git tag: `v1.4.0-1`
 - [x] Document versioning strategy in README
-- [x] Note: Local version identifiers won't upload to PyPI (acceptable for fork)
+- [x] Update Docker workflow to use semver extraction
 
 ### Phase 7: Docker Updates ✓
 - [x] Review Dockerfile for Python version compatibility
@@ -145,16 +145,16 @@ Key versions between 1.7.1 and 1.9.5 to review:
 
 ## Version Strategy Decision
 
-### Option 1: Fork Versioning Suffix ⭐ SELECTED
-- Format: `1.4.0+fork.1`, `1.4.0+fork.2`, etc.
+### Option 1: Simple Numeric Suffix ⭐ SELECTED
+- Format: `1.4.0-1`, `1.4.0-2`, etc.
 - Pros:
   - Clearly shows relation to upstream (version 1.4.0)
   - Easy to merge changes if upstream resumes activity
-  - Git-friendly versioning strategy
-  - Clear fork lineage for users
+  - Git and Docker compatible (no special characters)
+  - Repository owner (sandipb) already identifies the fork in GHCR path
+  - Clean and simple
 - Cons:
-  - PEP 440 local version identifiers won't upload to PyPI
-  - Acceptable for fork not intended for PyPI publication
+  - None significant
 
 ### Option 2: New Major Version
 - Format: `2.0.0`, `2.1.0`, etc.
@@ -166,12 +166,13 @@ Key versions between 1.7.1 and 1.9.5 to review:
 - Pros: Clear timeline, no confusion with upstream
 - Cons: Less semantic meaning, obscures upstream relationship
 
-**SELECTED**: Option 1 - Use `1.4.0+fork.1` to indicate:
+**SELECTED**: Option 1 - Use `1.4.0-1` to indicate:
 - Based on upstream version 1.4.0 (last PyPI release)
-- First fork release with dependency updates
+- First fork iteration with dependency updates
 - Maintains upstream compatibility and merge-ability
-- Clear lineage: `1.4.0+fork.1` → `1.4.0+fork.2` for subsequent releases
-- If upstream releases 1.5.0, fork can become `1.5.0+fork.1` after merging
+- Clear lineage: `1.4.0-1` → `1.4.0-2` for subsequent releases
+- If upstream releases 1.5.0, fork can become `1.5.0-1` after merging
+- Git tag: `v1.4.0-1`, Docker tag: `1.4.0-1`
 
 ## Testing Checklist
 
@@ -234,7 +235,7 @@ If critical issues are discovered:
 
 **Date**: January 7, 2025
 
-**Version**: 1.4.0+fork.1
+**Version**: 1.4.0-1
 
 ### What Was Accomplished
 
@@ -253,9 +254,9 @@ If critical issues are discovered:
    - No breaking changes detected
 
 4. **Versioning**:
-   - Implemented fork versioning: `1.4.0+fork.1`
-   - Created git tag: `v1.4.0+fork.1`
-   - Configured setuptools_scm for proper version handling
+   - Implemented fork versioning: `1.4.0-1`
+   - Created git tag: `v1.4.0-1`
+   - Configured setuptools_scm and Docker workflows for proper version handling
 
 5. **Docker**:
    - Updated base image: `python:3` → `python:3.9`
@@ -277,9 +278,10 @@ If critical issues are discovered:
 ### Next Steps (Future Maintenance)
 
 - Monitor upstream repository for any activity
-- If upstream releases new version (e.g., 1.5.0), merge and create `1.5.0+fork.1`
-- For fork-specific changes, increment: `1.4.0+fork.2`, `1.4.0+fork.3`, etc.
+- If upstream releases new version (e.g., 1.5.0), merge and create `v1.5.0-1`
+- For fork-specific changes, increment: `v1.4.0-2`, `v1.4.0-3`, etc.
 - Continue monitoring Apprise releases for compatibility updates
+- Docker images will be available at: `ghcr.io/sandipb/mailrise:1.4.0-1`, `:1.4`, `:stable`, `:latest`
 
 ## Notes
 
