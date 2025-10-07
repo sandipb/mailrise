@@ -3,9 +3,9 @@ name: Push to GitHub Packages
 on:
   push:
     branches:
-      - 'apprise-1.9.5'
+      - 'main'
     tags:
-      - '*'
+      - 'v*'
   workflow_dispatch:
 
 jobs:
