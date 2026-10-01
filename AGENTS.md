@@ -123,6 +123,13 @@ When syncing upstream through a PR, preserve ancestry with the current `main`;
 rebasing published fork commits alone can produce PR conflicts. Verify GitHub
 reports the PR as mergeable before handoff.
 
+Land an upstream-sync PR with a merge commit, never a squash or a rebase. Both
+rewrite the upstream commits, so `main` keeps no ancestry with `upstream/main`:
+squashing additionally discards the upstream authors and per-commit granularity,
+and rebasing leaves duplicated commits that every later sync re-resolves against
+an old merge base. Fork-only PRs share no ancestry to preserve, so squashing them
+is fine.
+
 ### Versioning Scheme
 - Format: `<upstream-version>-<N>`
 - Example: `1.4.0-2`
