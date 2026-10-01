@@ -5,7 +5,7 @@ All notable changes to this fork will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
-## [Unreleased]
+## [1.4.0-5] - 2026-10-01
 
 ### Changed
 - Synced with upstream commit `60d485e`.
@@ -14,6 +14,11 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 - Set Python 3.13 as the Docker, dev-container, and default tox version; retained Python 3.10 support.
 - Removed obsolete upgrade notes and Python 3.9 compatibility changes.
 - Updated fork documentation and retained upstream's workflow and metadata updates.
+
+### Fixed
+- Attachment payloads that the email library does not decode to bytes, such as a
+  nested `message/rfc822` message or a text part in a delivery-status notification,
+  no longer fail the notification ([#5](https://github.com/sandipb/mailrise/issues/5)).
 
 ## [1.4.0-4] - 2025-10-07
 
@@ -49,7 +54,7 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 - Bumped minimum Python version to 3.9+ (from 3.8+) due to Apprise 1.9.5 requirement
 - All tests passing with updated dependencies
 
-[Unreleased]: https://github.com/sandipb/mailrise/compare/v1.4.0-4...HEAD
+[1.4.0-5]: https://github.com/sandipb/mailrise/compare/v1.4.0-4...v1.4.0-5
 [1.4.0-4]: https://github.com/sandipb/mailrise/compare/v1.4.0-3...v1.4.0-4
 [1.4.0-3]: https://github.com/sandipb/mailrise/compare/v1.4.0-2...v1.4.0-3
 [1.4.0-2]: https://github.com/sandipb/mailrise/compare/v1.4.0-1...v1.4.0-2

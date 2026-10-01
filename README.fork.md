@@ -57,7 +57,7 @@ project while distinguishing fork-specific releases:
   * Keeps upstream updates separate from fork release numbering
   * The fork is identified by the repository owner (sandipb) in the container registry path
 
-**Current version**: `1.4.0-4`
+**Current version**: `1.4.0-5`
 
 ## Changes in this fork
 
