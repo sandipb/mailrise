@@ -154,7 +154,19 @@ def _getmultiparttext(msg: StdlibEmailMessage) -> StdlibEmailMessage:
 
 
 def _parseattachment(part: StdlibEmailMessage) -> r.EmailAttachment:
-    return r.EmailAttachment(data=part.get_content(), filename=part.get_filename(''))
+    """Parses an email attachment.
+
+    `get_content` returns `str` for text parts and an `EmailMessage` for
+    nested messages, such as the `message/rfc822` part of a delivery-status
+    notification, but Apprise can only upload bytes.
+    """
+    data = part.get_content()
+    if isinstance(data, str):
+        # Recover the payload bytes that `get_content` decoded.
+        data = part.get_payload(decode=True)
+    elif isinstance(data, StdlibEmailMessage):
+        data = data.as_bytes()
+    return r.EmailAttachment(data=data, filename=part.get_filename(''))
 
 
 def _logmessage(msg: r.EmailMessage) -> str:
