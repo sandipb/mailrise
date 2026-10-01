@@ -140,14 +140,14 @@ reports the PR as mergeable before handoff.
 
 ### Docker Images
 - Published to both GitHub Container Registry (ghcr.io) and Docker Hub
-- Tag strategy:
+- Tag strategy (source of truth: `.github/actions/docker-build/action.yml`):
   - `latest`: Latest build from `main` branch
   - `stable`: Latest tagged release (tags starting with `v`)
-  - `<version>`: Full version (e.g., `1.4.0-2`)
-  - `<major>.<minor>`: Major.minor version (e.g., `1.4`)
-  - `<major>`: Major version only (e.g., `1`)
+  - `<version>`: Full version (e.g., `1.4.0-5`)
   - `sha-<short-sha>`: Build from specific commit
-- Allows users to pin to major, major.minor, or full version as needed
+- Fork releases are semver pre-release versions (`<upstream-version>-<N>`), so no
+  `<major>` or `<major>.<minor>` tags are published; use `stable` to follow the
+  latest release
 
 ### GitHub Workflows
 - `.github/workflows/github-packages.yml`: Builds and pushes to GitHub Container Registry
