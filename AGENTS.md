@@ -115,7 +115,7 @@ YAML-based configuration with structure:
 
 ### Branching Strategy
 - `main`: Development branch for fork-specific work
-- `upstream`: Tracks upstream repository changes
+- `upstream/main`: Remote-tracking branch for https://github.com/YoRyan/mailrise
 - Feature branches created from `main`
 - Pull requests target `main`
 
@@ -125,7 +125,7 @@ YAML-based configuration with structure:
 - Rationale:
   - First part matches upstream version (e.g., `1.4.0`)
   - Second part (`-N`) is fork iteration number
-  - Makes it easy to merge upstream changes if original project resumes
+  - Keeps upstream updates separate from fork release numbering
   - Fork identity maintained via repository owner in container registry
 
 ### Documentation

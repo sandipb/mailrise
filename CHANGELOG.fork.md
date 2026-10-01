@@ -7,6 +7,12 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
 ## [Unreleased]
 
+### Changed
+- Synced with upstream commit `60d485e`.
+- Set Python 3.13 as the Docker, dev-container, and default tox version; retained Python 3.10 support.
+- Removed obsolete upgrade notes and Python 3.9 compatibility changes.
+- Updated fork documentation and retained upstream's workflow and metadata updates.
+
 ## [1.4.0-4] - 2025-01-07
 
 ### Added
