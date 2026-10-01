@@ -8,3 +8,10 @@ build-backend = "setuptools.build_meta"
 version_scheme = "no-guess-dev"
 local_scheme = "node-and-date"
 tag_regex = "^v(?P<version>\\d+\\.\\d+\\.\\d+(-\\d+)?)$"
+
+tag_regex = "^v(?P<version>[vV]?\\d+\\.\\d+\\.\\d+(\\+fork\\.\\d+)?)$"
+
+[[tool.mypy.overrides]]
+# Needed because Apprise doesn't include a py.typed file. Delete when it does.
+module = ["apprise.*"]
+follow_untyped_imports = true
