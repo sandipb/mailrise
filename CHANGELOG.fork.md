@@ -13,7 +13,7 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 - Removed obsolete upgrade notes and Python 3.9 compatibility changes.
 - Updated fork documentation and retained upstream's workflow and metadata updates.
 
-## [1.4.0-4] - 2025-01-07
+## [1.4.0-4] - 2025-10-07
 
 ### Added
 - Python 3.12 and 3.13 support ([#2](https://github.com/sandipb/mailrise/issues/2))
@@ -21,7 +21,6 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
 ### Changed
 - Updated tox configuration to test against multiple Python versions
-- Enhanced CI/CD testing matrix for better compatibility verification
 - Raised minimum Python version requirement from 3.9 to 3.10
 
 ## [1.4.0-3] - 2025-10-07
