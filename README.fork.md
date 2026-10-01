@@ -62,6 +62,7 @@ project while distinguishing fork-specific releases:
 ## Changes in this fork
 
 * Synced with upstream commit `60d485e` (2025-11-08).
+* Requires Apprise 2.0 or later; dependency versions are no longer pinned.
 * Supports Python 3.10–3.13; Python 3.13 is the container and default test version.
 * Publishes fork images to Docker Hub and GitHub Container Registry.
 * Uses fork-specific release tags and container tags.
