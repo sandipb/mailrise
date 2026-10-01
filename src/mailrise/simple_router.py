@@ -141,7 +141,7 @@ class SimpleRouter(Router):  # pylint: disable=too-few-public-methods
                 attachments=email.attachments
             )
 
-    def get_sender(self, key: _Key) -> typ.Optional[_SimpleSender]:
+    def get_sender(self, key: _Key) -> _SimpleSender | None:
         """Find a sender by recipient key."""
         return next(
             (sender for (pattern_key, sender) in self.senders
@@ -169,7 +169,7 @@ def _parse_simple_key(logger: Logger, key: str) -> _Key:
     def fatal():
         logger.critical(
             "Invalid config key '%s'; should be a string or an email address "
-            'without periods in the username')
+            'without periods in the username', key)
         raise SystemExit(1)
     if '@' in key:
         user, domain = _parseaddrparts(key)

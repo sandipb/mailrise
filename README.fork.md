@@ -13,7 +13,8 @@ This document describes all changes made in this fork of mailrise.
 You can find the original Mailrise [on PyPI](https://pypi.org/project/mailrise/).
 This fork is not published to PyPI. Install from source instead (see below).
 
-The minimum Python version is 3.10+.
+The minimum Python version is 3.10. Docker images and the default tox target use Python 3.13.
+Run `tox -e py310,py311,py312,py313` to test all supported Python versions.
 
 Once installed, you should write a configuration file and then configure Mailrise
 to run as a service. Here is the suggested systemd unit file::
@@ -32,7 +33,7 @@ to run as a service. Here is the suggested systemd unit file::
 This repository is structured like any other Python package. To install it in
 editable mode for development or debugging purposes, use::
 
-    pip install -e .
+    pip install -e ".[testing]"
 
 To build a wheel, use::
 
@@ -53,18 +54,15 @@ project while distinguishing fork-specific releases:
 
   * `1.4.0` matches the last upstream release version
   * `-N` identifies the fork iteration (increments with each fork release)
-  * Makes it easy to merge upstream changes if the original project resumes activity
+  * Keeps upstream updates separate from fork release numbering
   * The fork is identified by the repository owner (sandipb) in the container registry path
 
 **Current version**: `1.4.0-4`
 
 ## Changes in this fork
 
-* Updated dependencies:
-
-  * Apprise: 1.7.1 → 1.9.5
-  * aiosmtpd: 1.4.4.post2 → 1.4.6
-  * PyYAML: 6.0.1 → 6.0.3
-
-* Python requirement: 3.10+ (was 3.8+, updated due to Apprise 1.9.5 requirement and modern Python support)
-* All tests passing with updated dependencies
+* Synced with upstream commit `60d485e` (2025-11-08).
+* Requires Apprise 2.0 or later; dependency versions are no longer pinned.
+* Supports Python 3.10–3.13; Python 3.13 is the container and default test version.
+* Publishes fork images to Docker Hub and GitHub Container Registry.
+* Uses fork-specific release tags and container tags.

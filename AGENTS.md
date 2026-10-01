@@ -115,9 +115,13 @@ YAML-based configuration with structure:
 
 ### Branching Strategy
 - `main`: Development branch for fork-specific work
-- `upstream`: Tracks upstream repository changes
+- `upstream/main`: Remote-tracking branch for https://github.com/YoRyan/mailrise
 - Feature branches created from `main`
 - Pull requests target `main`
+
+When syncing upstream through a PR, preserve ancestry with the current `main`;
+rebasing published fork commits alone can produce PR conflicts. Verify GitHub
+reports the PR as mergeable before handoff.
 
 ### Versioning Scheme
 - Format: `<upstream-version>-<N>`
@@ -125,7 +129,7 @@ YAML-based configuration with structure:
 - Rationale:
   - First part matches upstream version (e.g., `1.4.0`)
   - Second part (`-N`) is fork iteration number
-  - Makes it easy to merge upstream changes if original project resumes
+  - Keeps upstream updates separate from fork release numbering
   - Fork identity maintained via repository owner in container registry
 
 ### Documentation
@@ -152,6 +156,10 @@ YAML-based configuration with structure:
   - Push to `main` branch
   - Push of tags matching `v*` pattern
   - Manual workflow dispatch
+
+For branch-only publication, use `git push --no-follow-tags`. Automatic tag
+following can publish fetched upstream tags unintentionally. Push release tags
+explicitly.
 
 ### Commit Message Convention
 - Follow [Conventional Commits](https://www.conventionalcommits.org/) specification

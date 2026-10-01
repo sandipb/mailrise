@@ -7,7 +7,15 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
 ## [Unreleased]
 
-## [1.4.0-4] - 2025-01-07
+### Changed
+- Synced with upstream commit `60d485e`.
+- Require Apprise 2.0 or later and use its renamed service-access API in tests.
+- Replace exact dependency pins with minimum versions.
+- Set Python 3.13 as the Docker, dev-container, and default tox version; retained Python 3.10 support.
+- Removed obsolete upgrade notes and Python 3.9 compatibility changes.
+- Updated fork documentation and retained upstream's workflow and metadata updates.
+
+## [1.4.0-4] - 2025-10-07
 
 ### Added
 - Python 3.12 and 3.13 support ([#2](https://github.com/sandipb/mailrise/issues/2))
@@ -15,7 +23,6 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
 ### Changed
 - Updated tox configuration to test against multiple Python versions
-- Enhanced CI/CD testing matrix for better compatibility verification
 - Raised minimum Python version requirement from 3.9 to 3.10
 
 ## [1.4.0-3] - 2025-10-07

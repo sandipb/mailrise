@@ -246,11 +246,10 @@ def test_env_var() -> None:
             sender = router.get_sender(key)
             assert sender is not None
             notifier = _make_notifier(sender.config_yaml)
-            # Missing type annotation for this property as of Dec 2022.
-            ap_servers = notifier.servers  # type: ignore
+            ap_servers = notifier.services
             assert len(ap_servers) == 1
             config = ap_servers[0]
-            servers = config.servers()
+            servers = config.services()
             assert len(servers) == 1
             assert servers[0].url().startswith('json://localhost')
 

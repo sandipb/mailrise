@@ -124,7 +124,8 @@ You can find Mailrise `on PyPI <https://pypi.org/project/mailrise/>`_::
 
     pip install mailrise
 
-The minimum Python version is 3.8.
+The original PyPI package requires Python 3.8 or later. This fork requires
+Python 3.10 or later and uses Python 3.13 for its Docker images.
 
 Once installed, you should write a configuration file and then configure Mailrise
 to run as a service. Here is the suggested systemd unit file::
@@ -144,7 +145,7 @@ From source
 This repository is structured like any other Python package. To install it in
 editable mode for development or debugging purposes, use::
 
-    pip install -e .
+    pip install -e .[testing]
 
 To build a wheel, use::
 
