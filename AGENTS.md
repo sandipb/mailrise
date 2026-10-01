@@ -119,20 +119,53 @@ YAML-based configuration with structure:
 - Feature branches created from `main`
 - Pull requests target `main`
 
-When syncing upstream through a PR, preserve ancestry with the current `main`;
-rebasing published fork commits alone can produce PR conflicts. Verify GitHub
-reports the PR as mergeable before handoff.
+### Syncing Upstream
+Branch from the current `main`; never rebase published fork commits, which
+produces PR conflicts. Then:
 
-Land an upstream-sync PR with a merge commit, never a squash or a rebase. Both
-rewrite the upstream commits, so `main` keeps no ancestry with `upstream/main`:
-squashing additionally discards the upstream authors and per-commit granularity,
-and rebasing leaves duplicated commits that every later sync re-resolves against
-an old merge base. Fork-only PRs share no ancestry to preserve, so squashing them
-is fine.
+1. Fetch `upstream` and merge the exact commit under review, pinned by SHA
+   because `upstream/main` moves: `git merge <sha>`.
+2. Resolve conflicts by keeping fork-specific content. The usual conflicts are
+   fork-customized files: the Docker workflows, packaging metadata
+   (`pyproject.toml`, `setup.cfg`), and the dev container definition. The exact
+   set follows what upstream touched, so fork documentation and the Docker build
+   action may auto-merge.
+3. Run the repository checks, push the branch, open a PR against `main`, and
+   confirm GitHub reports it mergeable.
+4. Land with a merge commit. Fork-only PRs share no ancestry to preserve and may
+   be squashed.
+
+A merge commit, or a fast-forward when the fork has not diverged, keeps the
+upstream commits as ancestors of `main` with their original SHAs, authors, and
+messages, and keeps `git blame` pointing at them. Squashing folds the whole sync
+into one fork commit, losing per-commit granularity, author dates, and blame;
+GitHub preserves those authors only as `Co-authored-by` trailers. Rebasing
+preserves author name, email, and date, but rewrites the SHA and committer and
+drops the original signature, so `upstream/main` is still not an ancestor and the
+duplicates are re-resolved on every later sync.
+
+Verify after landing:
+
+```bash
+git merge-base --is-ancestor upstream/main main   # passes once the synced tip is merged
+git rev-list --count main..upstream/main          # 0 only when the synced commit is upstream's tip
+git rev-list --parents -1 <merge> | wc -w         # 3 = the sync landed as a merge
+```
+
+All three also pass on a squashed sync, so spot-check blame on a file upstream
+changed and confirm it credits the upstream commit rather than a fork commit.
+
+Repair a squashed or rebased sync by merging `upstream/main` while keeping the
+fork's tree: ancestry returns and the tree stays identical, but the sync's lines
+still blame the squash. Only rewriting `main` restores blame.
+
+`upstream/main` is the upstream repository's main branch; the fork also has a
+branch named `upstream`, which fetches as `origin/upstream`.
 
 ### Versioning Scheme
-- Format: `<upstream-version>-<N>`
-- Example: `1.4.0-2`
+- Format: `<upstream-version>-<N>`, for example `1.4.0-5`
+- Release tags carry a `v` prefix (`v1.4.0-5`); the release and Docker workflows
+  trigger only on `v*` tags, so an unprefixed tag publishes nothing
 - Rationale:
   - First part matches upstream version (e.g., `1.4.0`)
   - Second part (`-N`) is fork iteration number
@@ -152,9 +185,11 @@ is fine.
   - `stable`: Latest tagged release (tags starting with `v`)
   - `<version>`: Full version (e.g., `1.4.0-5`)
   - `sha-<short-sha>`: Build from specific commit
-- Fork releases are semver pre-release versions (`<upstream-version>-<N>`), so no
-  `<major>` or `<major>.<minor>` tags are published; use `stable` to follow the
-  latest release
+- Fork releases are semver pre-release versions (`<upstream-version>-<N>`), and
+  the metadata action expands `{{major}}` and `{{major}}.{{minor}}` to the full
+  pre-release string, so those rules collapse onto `<version>`; no `<major>` or
+  `<major>.<minor>` tags are published. This holds only while every release tag
+  keeps its `-N` suffix. Use `stable` to follow the latest release
 
 ### GitHub Workflows
 - `.github/workflows/github-packages.yml`: Builds and pushes to GitHub Container Registry
