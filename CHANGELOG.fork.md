@@ -9,6 +9,8 @@ and this project adheres to the versioning scheme `<upstream-version>-<N>`.
 
 ### Changed
 - Synced with upstream commit `60d485e`.
+- Require Apprise 2.0 or later and use its renamed service-access API in tests.
+- Replace exact dependency pins with minimum versions.
 - Set Python 3.13 as the Docker, dev-container, and default tox version; retained Python 3.10 support.
 - Removed obsolete upgrade notes and Python 3.9 compatibility changes.
 - Updated fork documentation and retained upstream's workflow and metadata updates.
