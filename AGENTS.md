@@ -119,6 +119,10 @@ YAML-based configuration with structure:
 - Feature branches created from `main`
 - Pull requests target `main`
 
+When syncing upstream through a PR, preserve ancestry with the current `main`;
+rebasing published fork commits alone can produce PR conflicts. Verify GitHub
+reports the PR as mergeable before handoff.
+
 ### Versioning Scheme
 - Format: `<upstream-version>-<N>`
 - Example: `1.4.0-2`
@@ -152,6 +156,10 @@ YAML-based configuration with structure:
   - Push to `main` branch
   - Push of tags matching `v*` pattern
   - Manual workflow dispatch
+
+For branch-only publication, use `git push --no-follow-tags`. Automatic tag
+following can publish fetched upstream tags unintentionally. Push release tags
+explicitly.
 
 ### Commit Message Convention
 - Follow [Conventional Commits](https://www.conventionalcommits.org/) specification
